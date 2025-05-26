@@ -1,4 +1,6 @@
-📚 API de Reserva de Salas
+📚  API de Reserva de Salas
+
+🧠 Objetivo Geral
 Este repositório contém a API de Reserva de Salas, desenvolvida com Flask e SQLAlchemy, como parte de uma arquitetura baseada em microsserviços.
 
 🧩 Arquitetura
@@ -39,7 +41,7 @@ pip install -r requirements.txt
 Execute a API:
 python app.py
 
-A aplicação estará disponível em: 📍 http://localhost:5001
+A aplicação estará disponível em: 📍 http://localhost:5001/reservas
 
 📝 Observação: O banco de dados é criado automaticamente na primeira execução.
 
@@ -67,7 +69,7 @@ reserva-salas/
 ├── app.py
 ├── reserva_model.py
 ├── database.py
-├── routes.py
+├── reserva_routes.py
 ├── requirements.txt
 └── README.md
 
