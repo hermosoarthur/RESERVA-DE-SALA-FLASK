@@ -74,6 +74,7 @@ reserva-salas/
 └── README.md
 
 🛠️ Futuras Melhorias
+
 Validação de conflito de horário na sala
 
 Integração via fila (RabbitMQ) com outros microsserviços

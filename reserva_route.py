@@ -2,13 +2,21 @@ from flask import Blueprint, request, jsonify
 from reserva_model import Reserva
 from database import db
 import requests
-from datetime import datetime
+import os
 
 routes = Blueprint("routes", __name__)
 
+API_TURMAS_URL = os.getenv("API_TURMAS_URL", "http://host.docker.internal:5000")
+
+
 def validar_turma(turma_id):
-        resp = requests.get(f"http://localhost:5000/projeto-api-flask/turmas/{turma_id}")
+    try:
+        resp = requests.get(f"{API_TURMAS_URL}/projeto-api-flask/turmas/{turma_id}")
         return resp.status_code == 200
+    except requests.exceptions.RequestException as e:
+        print(f"Erro ao validar turma: {e}")
+        return False
+
 
 
 @routes.route("/reservas", methods=["POST"])
@@ -60,3 +68,13 @@ def obter_reserva(id):
         })
     else:
         return jsonify({"erro": "Reserva não encontrada"}), 404
+
+@routes.route("/reservas", methods=["DELETE"])
+def deletar_todas_reservas():
+    try:
+        num_apagadas = Reserva.query.delete()
+        db.session.commit()
+        return jsonify({"mensagem": "reservas apagadas com sucesso"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"erro": str(e)}), 500
