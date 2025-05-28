@@ -1,9 +1,11 @@
-📚  API de Reserva de Salas
+# 📚  API de Reserva de Salas
 
-🧠 Objetivo Geral
+## 🧠 Objetivo Geral
+
 Este repositório contém a API de Reserva de Salas, desenvolvida com Flask e SQLAlchemy, como parte de uma arquitetura baseada em microsserviços.
 
-🧩 Arquitetura
+## 🧩 Arquitetura
+
 A API de Reserva de Salas é um microsserviço que faz parte de um sistema maior chamado School System, sendo responsável exclusivamente pelo gerenciamento das reservas de salas por turma.
 
 ⚠️ Esta API depende de outra API de Gerenciamento Escolar (School System), que deve estar em execução e exposta localmente.
@@ -14,7 +16,8 @@ Se a Turma existe: GET /turmas/<id>
 
 (Opcional) Se o Aluno existe: GET /alunos/<id> → Pode ser desativado se não for usado.
 
-🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
+
 Python 3.x
 
 Flask
@@ -25,7 +28,8 @@ SQLite (como banco de dados local)
 
 Requests (para consumo da API externa)
 
-▶️ Como Executar a API
+## ▶️ Como Executar a API
+
 Clone o repositório:
 git clone https://github.com/hermosoarthur/RESERVA-DE-SALA-FLASK
 cd reserva-salas
@@ -43,9 +47,10 @@ python app.py
 
 A aplicação estará disponível em: 📍 http://localhost:5001/reservas
 
-📝 Observação: O banco de dados é criado automaticamente na primeira execução.
+## 📝 Observação: O banco de dados é criado automaticamente na primeira execução.
 
-📡 Endpoints Principais
+## 📡 Endpoints Principais
+
 GET /reservas → Lista todas as reservas
 
 POST /reservas → Cria uma nova reserva
@@ -59,12 +64,14 @@ DELETE /reservas/<id> → Remove uma reserva
 Exemplo de corpo JSON para criação:
 { "turma_id": 1, "sala": "101", "data": "2025-05-06", "hora_inicio": "14:00", "hora_fim": "16:00" }
 
-🔗 Dependência Externa
+# 🔗 Dependência Externa
+
 Certifique-se de que a API de Gerenciamento Escolar esteja rodando em: http://localhost:5000
 
 E que os endpoints GET /turmas/<id> e (opcionalmente) GET /alunos/<id> estejam funcionando corretamente, para que a validação seja realizada com sucesso.
 
-📦 Estrutura do Projeto
+# 📦 Estrutura do Projeto
+
 reserva-salas/
 ├── app.py
 ├── reserva_model.py
@@ -73,7 +80,8 @@ reserva-salas/
 ├── requirements.txt
 └── README.md
 
-🛠️ Futuras Melhorias
+
+# 🛠️ Futuras Melhorias
 
 Validação de conflito de horário na sala
 
@@ -81,7 +89,8 @@ Integração via fila (RabbitMQ) com outros microsserviços
 
 Autenticação de usuários
 
-🧑‍💻 Autores
+# 🧑‍💻 Autores
+
 Arthur Hermoso
 
 Luana Garrido Moreira Dias
