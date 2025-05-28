@@ -8,7 +8,7 @@ Este repositório contém a API de Reserva de Salas, desenvolvida com Flask e SQ
 
 A API de Reserva de Salas é um microsserviço que faz parte de um sistema maior chamado School System, sendo responsável exclusivamente pelo gerenciamento das reservas de salas por turma.
 
-⚠️ Esta API depende de outra API de Gerenciamento Escolar (School System), que deve estar em execução e exposta localmente.
+⚠️ A API depende da [API de Gerenciamento Escolar](https://github.com/hermosoarthur/API-FLASK), que deve estar em execução para o sistema funcionar corretamente.
 
 A comunicação entre os serviços ocorre via requisições HTTP REST, para validar:
 
@@ -28,26 +28,28 @@ SQLite (como banco de dados local)
 
 Requests (para consumo da API externa)
 
-## ▶️ Como Executar a API
+## ▶️ Como Executar a API com Docker
 
-Clone o repositório:
-git clone https://github.com/hermosoarthur/RESERVA-DE-SALA-FLASK
-cd reserva-salas
+1. **Clone o repositório:**
+```bash
+git clone https://github.com/hermosoarthur/API-FLASK
+cd API-FLASK
+```                                                                                                                                                                                                     
+2. Executar com Docker (recomendado):
+```bash
+docker network create api-network
+```
+Essa rede será utilizada por todas as APIs que fazem parte do sistema de microsserviços (como as APIs de Gestão e Reservas), permitindo que elas se comuniquem entre si. *(OBS: caso já tenha feito a execução da API de gestão não é necessario criar )*
 
-Crie um ambiente virtual (opcional, mas recomendado):
-python3 -m venv venv
-source venv/bin/activate # Linux/macOS
-venv\Scripts\activate # Windows
-
-Instale as dependências:
-pip install -r requirements.txt
-
-Execute a API:
-python app.py
-
+3. Construa a imagem da API
+```bash
+docker build -t api-rsv .
+```
+4. Execute o container utilizando a rede criada:
+```bash
+docker run -d --name api-rsv --network api-network -p 5001:5001 api-arsv
+```
 A aplicação estará disponível em: 📍 http://localhost:5001/reservas
-
-## 📝 Observação: O banco de dados é criado automaticamente na primeira execução.
 
 ## 📡 Endpoints Principais
 
@@ -62,7 +64,16 @@ PUT /reservas/<id> → Atualiza uma reserva
 DELETE /reservas/<id> → Remove uma reserva
 
 Exemplo de corpo JSON para criação:
-{ "turma_id": 1, "sala": "101", "data": "2025-05-06", "hora_inicio": "14:00", "hora_fim": "16:00" }
+
+```json
+{
+  "turma_id": 1,
+  "sala": "101",
+  "data": "2025-05-06",
+  "hora_inicio": "14:00",
+  "hora_fim": "16:00"
+}
+```
 
 # 🔗 Dependência Externa
 
@@ -70,15 +81,17 @@ Certifique-se de que a API de Gerenciamento Escolar esteja rodando em: http://lo
 
 E que os endpoints GET /turmas/<id> e (opcionalmente) GET /alunos/<id> estejam funcionando corretamente, para que a validação seja realizada com sucesso.
 
-# 📦 Estrutura do Projeto
+## 📦 Estrutura do Projeto
 
-reserva-salas/
-├── app.py
-├── reserva_model.py
-├── database.py
-├── reserva_routes.py
-├── requirements.txt
-└── README.md
+```bash
+reserva-de-sala-flask/
+├── app.py                 
+├── reserva_model.py       
+├── database.py            
+├── reserva_routes.py      
+├── requirements.txt       
+└── README.md              
+```
 
 
 # 🛠️ Futuras Melhorias
@@ -88,6 +101,8 @@ Validação de conflito de horário na sala
 Integração via fila (RabbitMQ) com outros microsserviços
 
 Autenticação de usuários
+
+Docker Compose
 
 # 🧑‍💻 Autores
 
